@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import uk.ac.tees.mad.D3905133.navigation.AppNavigation
 import uk.ac.tees.mad.D3905133.ui.theme.NewsDroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsDroidTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   NewsNavigation(
+                   AppNavigation(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
