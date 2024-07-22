@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1076449419019",
+    "project_id": "news-droid-1dc01",
+    "storage_bucket": "news-droid-1dc01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076449419019:android:c72b1b0e832afe12be4c0e",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.mad.D3905133"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy5P4hNQ6aNpvu3aYl5u3jiyGia4_aibw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
