@@ -30,7 +30,7 @@ fun AppNavigation(modifier: Modifier) {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = NavDestination.SPLASH.route) {
             composable(route = NavDestination.SPLASH.route) {
-                SplashScreen()
+                SplashScreen(navController = navController)
             }
             composable(route = NavDestination.SIGNUP.route) {
                 SignUpScreen()
