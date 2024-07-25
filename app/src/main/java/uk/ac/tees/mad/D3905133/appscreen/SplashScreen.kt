@@ -20,16 +20,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
+import uk.ac.tees.mad.D3905133.NewsViewModel
 import uk.ac.tees.mad.D3905133.R
+import uk.ac.tees.mad.D3905133.checkSignedIn
 import uk.ac.tees.mad.D3905133.navigateWithNoBackStack
 import uk.ac.tees.mad.D3905133.navigation.NavDestination
 import uk.ac.tees.mad.D3905133.ui.theme.openSans
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController,vm:NewsViewModel) {
     LaunchedEffect(key1 = true) {
         while (true){
             delay(2000)
+            checkSignedIn(navController,vm)
             navigateWithNoBackStack(navController = navController, destination = NavDestination.LOGIN)
         }
     }

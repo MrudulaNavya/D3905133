@@ -15,3 +15,10 @@ fun navigateWithNoBackStack(navController: NavController, destination: NavDestin
 fun navigateWithBackStack(navController: NavController, destination: NavDestination){
     navController.navigate(destination.route)
 }
+
+fun checkSignedIn(navController: NavController,viewModel: NewsViewModel){
+    val response = viewModel.checkSignedIn()
+    if (response){
+        navigateWithNoBackStack(navController,NavDestination.HOME)
+    }
+}

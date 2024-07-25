@@ -3,9 +3,11 @@ package uk.ac.tees.mad.D3905133.navigation
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import uk.ac.tees.mad.D3905133.NewsViewModel
 import uk.ac.tees.mad.D3905133.appscreen.HomeScreen
 import uk.ac.tees.mad.D3905133.appscreen.LoginScreen
 import uk.ac.tees.mad.D3905133.appscreen.NewsDetailScreen
@@ -27,16 +29,17 @@ sealed class NavDestination(val route: String){
 @Composable
 fun AppNavigation(modifier: Modifier) {
     Surface {
+        val viewModel : NewsViewModel = viewModel()
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = NavDestination.SPLASH.route) {
             composable(route = NavDestination.SPLASH.route) {
-                SplashScreen(navController = navController)
+                SplashScreen(navController = navController, vm = viewModel)
             }
             composable(route = NavDestination.SIGNUP.route) {
-                SignUpScreen()
+                SignUpScreen(navController = navController, vm = viewModel)
             }
             composable(route = NavDestination.LOGIN.route) {
-                LoginScreen()
+                LoginScreen(navController = navController,vm = viewModel)
             }
             composable(route = NavDestination.HOME.route) {
                 HomeScreen()

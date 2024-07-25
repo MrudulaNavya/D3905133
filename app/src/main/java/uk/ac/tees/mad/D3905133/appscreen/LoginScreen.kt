@@ -17,11 +17,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.MailOutline
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -30,18 +27,28 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import uk.ac.tees.mad.D3905133.NewsViewModel
+import uk.ac.tees.mad.D3905133.navigateWithBackStack
+import uk.ac.tees.mad.D3905133.navigateWithNoBackStack
+import uk.ac.tees.mad.D3905133.navigation.NavDestination
 import uk.ac.tees.mad.D3905133.redColor
 import uk.ac.tees.mad.D3905133.ui.theme.openSans
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController, vm: NewsViewModel) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val isSignedIn = vm.isSignedIn
 
+    if (isSignedIn.value) {
+        navigateWithNoBackStack(navController = navController, destination = NavDestination.HOME)
+    }
     Box {
         Column {
 
@@ -72,7 +79,7 @@ fun LoginScreen() {
                         fontWeight = FontWeight.SemiBold
                     )
                     Spacer(modifier = Modifier.height(40.dp))
-                    Text(text = "Email")
+                    Text(text = "Email",fontFamily = openSans)
                     TextField(
                         value = email.value,
                         onValueChange = { email.value = it },
@@ -90,12 +97,12 @@ fun LoginScreen() {
                                     contentDescription = null
                                 )
                                 Spacer(modifier = Modifier.size(10.dp))
-                                Text("email address")
+                                Text("email address",fontFamily = openSans)
                             }
                         }
                     )
                     Spacer(modifier = Modifier.height(20.dp))
-                    Text(text = "Password")
+                    Text(text = "Password",fontFamily = openSans)
                     TextField(
                         value = password.value,
                         onValueChange = { password.value = it },
@@ -109,26 +116,26 @@ fun LoginScreen() {
                             Row {
                                 Icon(imageVector = Icons.Rounded.Lock, contentDescription = null)
                                 Spacer(modifier = Modifier.size(10.dp))
-                                Text("password")
+                                Text("password",fontFamily = openSans)
                             }
                         }
                     )
                     Spacer(modifier = Modifier.height(70.dp))
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { vm.logIn(context, email.value, password.value) },
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
                             redColor
                         )
                     ) {
-                        Text(text = "Login", color = Color.White, fontSize = 15.sp)
+                        Text(text = "Login",fontFamily = openSans, color = Color.White, fontSize = 15.sp)
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center) {
-                        Text(text = "Don't have an Account ?")
-                        Text(text = "Sign Up", color = redColor, fontWeight = FontWeight.Bold, modifier = Modifier.clickable {
-                            /*TODO*/
+                        Text(text = "Don't have an Account ?",fontFamily = openSans)
+                        Text(text = "Sign Up",fontFamily = openSans, color = redColor, fontWeight = FontWeight.Bold, modifier = Modifier.clickable {
+                            navigateWithBackStack(navController = navController, destination = NavDestination.SIGNUP)
                         })
                     }
                 }
