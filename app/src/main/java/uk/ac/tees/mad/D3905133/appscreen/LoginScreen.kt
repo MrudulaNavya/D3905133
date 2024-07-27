@@ -18,6 +18,7 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.MailOutline
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -45,6 +46,7 @@ fun LoginScreen(navController: NavController, vm: NewsViewModel) {
     val password = remember { mutableStateOf("") }
     val context = LocalContext.current
     val isSignedIn = vm.isSignedIn
+    val isLoading = vm.isLoading
 
     if (isSignedIn.value) {
         navigateWithNoBackStack(navController = navController, destination = NavDestination.HOME)
@@ -128,7 +130,16 @@ fun LoginScreen(navController: NavController, vm: NewsViewModel) {
                             redColor
                         )
                     ) {
-                        Text(text = "Login",fontFamily = openSans, color = Color.White, fontSize = 15.sp)
+                        if (isLoading.value) {
+                            CircularProgressIndicator(modifier = Modifier.size(20.dp))
+                        } else {
+                            Text(
+                                text = "Login",
+                                fontFamily = openSans,
+                                color = Color.White,
+                                fontSize = 15.sp
+                            )
+                        }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(modifier = Modifier.fillMaxWidth(),
