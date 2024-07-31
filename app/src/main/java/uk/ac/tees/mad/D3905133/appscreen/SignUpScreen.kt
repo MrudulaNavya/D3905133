@@ -135,7 +135,7 @@ fun SignUpScreen(navController: NavController, vm : NewsViewModel) {
                             CircularProgressIndicator(modifier = Modifier.size(20.dp))
                         } else {
                             Text(
-                                text = "Login",
+                                text = "Sign Up",
                                 fontFamily = openSans,
                                 color = Color.White,
                                 fontSize = 15.sp

@@ -4,9 +4,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import uk.ac.tees.mad.D3905133.NewsViewModel
 import uk.ac.tees.mad.D3905133.appscreen.HomeScreen
 import uk.ac.tees.mad.D3905133.appscreen.LoginScreen
@@ -21,7 +23,10 @@ sealed class NavDestination(val route: String){
     object SIGNUP : NavDestination("signup")
     object LOGIN : NavDestination("login")
     object HOME : NavDestination("home")
-    object DETAIL : NavDestination("detail")
+    object DETAIL : NavDestination("detail/{title}/{description}/{author}/{published}"){
+        fun createRoute(title: String, description: String?, author: String?, published: String?) =
+            "detail/$title/$description/$author/$published"
+    }
     object SAVED : NavDestination("saved")
     object PROFILE : NavDestination("profile")
 }
@@ -42,16 +47,28 @@ fun AppNavigation(modifier: Modifier) {
                 LoginScreen(navController = navController,vm = viewModel)
             }
             composable(route = NavDestination.HOME.route) {
-                HomeScreen()
+                HomeScreen(navController = navController, vm = viewModel)
             }
-            composable(route = NavDestination.DETAIL.route) {
-                NewsDetailScreen()
+            composable(
+                route = NavDestination.DETAIL.route,
+                arguments = listOf(
+                    navArgument("title") { type = NavType.StringType },
+                    navArgument("description") { type = NavType.StringType; nullable = true },
+                    navArgument("author") { type = NavType.StringType; nullable = true },
+                    navArgument("published") { type = NavType.StringType; nullable = true }
+                )
+            ) {backStackEntry ->
+                val title = backStackEntry.arguments?.getString("title")
+                val description = backStackEntry.arguments?.getString("description")
+                val author = backStackEntry.arguments?.getString("author")
+                val published = backStackEntry.arguments?.getString("published")
+                NewsDetailScreen(title, description, author, published)
             }
             composable(route = NavDestination.SAVED.route) {
-                SavedNewsScreen()
+                SavedNewsScreen(navController = navController, vm = viewModel)
             }
             composable(route = NavDestination.PROFILE.route) {
-                ProfileScreen()
+                ProfileScreen(vm = viewModel)
             }
         }
     }
